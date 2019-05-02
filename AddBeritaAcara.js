@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import { Header, ThemeProvider, Icon, CheckBox, Card, Input, ListItem, Label, Text } from 'react-native-elements';
+import { Header, ThemeProvider, Icon, CheckBox, Card, Input, ListItem, Label, Text, Title } from 'react-native-elements';
 import {View, ScrollView} from 'react-native'
 import DatePicker from 'react-native-datepicker'
+import {Grid, Col, Row} from 'react-native-easy-grid'
 
 
 export default class AddBeritaAcara extends Component{
@@ -21,15 +22,22 @@ export default class AddBeritaAcara extends Component{
     render(){
         return(
             <ScrollView>
-                <ThemeProvider>          
+                <View style={{padder:5}}>
+                         
                 <Header
                     placement="left"
                     leftComponent={{icon:'menu', color:'#fff'}}
                     centerComponent={{ text: 'Form Berita Acara', style: { color: '#fff', fontSize:20 } }}
+                    containerStyle={{height:70}}
                 />
-                <Card title="Berita Acara">
+
+                <Row style={{ justifyContent:'center', alignItems:'center', marginBottom:15, marginTop:10, borderBottomColor:'black', borderBottomWidth:0.8, paddingBottom:10 }}>
+                    <Text style={{fontSize:20, fontWeight:'bold', color:'#000'}}>Berita Acara</Text>
+                </Row>
+                
+                <Row style={{marginLeft:10}}>
                     <DatePicker
-                        style={{width: 200, marginLeft:13}}
+                        style={{width: 200, marginLeft:6, marginBottom:10}}
                         date={this.state.date}
                         mode="date"
                         placeholder="Pilih Tanggal"
@@ -50,56 +58,57 @@ export default class AddBeritaAcara extends Component{
                         }}
                         onDateChange={(date) => {this.setState({date:date})}}
                     />
-
-                    <Card>
-                        <Input
-                            label='Lokasi'
-                            placeholder='Masukkan Lokasi'
-                            leftIcon={<Icon
-                                    name="location-on"
-                                    size={18}
-                                    color='black'
-                                />}
-                            
-                    />
-                    </Card>
-                    
-                    <Card>
-                        <CheckBox
-                            left
-                            title='Pemeriksaan Jaringan'
-                            checked={this.state.isCheckedPemeriksaanJaringan}
-                            onPress={() => this.setState({isCheckedPemeriksaanJaringan: !this.state.isCheckedPemeriksaanJaringan})}
-                        />
-                        <CheckBox
-                            left
-                            title='Instalasi Kabel Jaringan'
-                            checked={this.state.isCheckedKabelJaringan}
-                            onPress={() => this.setState({isCheckedKabelJaringan: !this.state.isCheckedKabelJaringan})}
-                        />
-                        <CheckBox
-                            left
-                            title='Instalasi Perangkat Jaringan'
-                            checked={this.state.isCheckedPerangkatJaringan}
-                            onPress={() => this.setState({isCheckedPerangkatJaringan: !this.state.isCheckedPerangkatJaringan})}
-                        />
-                        <CheckBox
-                            left
-                            title='De-Instalasi Perangkat Jaringan'
-                            checked={this.state.isCheckedDeInstallPerangkatJaringan}
-                            onPress={() => this.setState({isCheckedDeInstallPerangkatJaringan: !this.state.isCheckedDeInstallPerangkatJaringan})}
-                        />
-                    </Card>
-
-                    <Card title="Dengan Perincian:" titleStyle={{textAlign:'left'}}>
-                        
-                    </Card>
-                    
-                        
-                    
-                </Card>
+                </Row>
                 
-            </ThemeProvider>
+                <Row style={{marginBottom:10, marginLeft:10}}>
+                    <Input
+                        label='Lokasi'
+                        placeholder='Masukkan Lokasi'
+                        leftIcon={<Icon
+                                name="location-on"
+                                size={18}
+                                color='black'
+                        />}
+                    />
+                </Row>
+                <Row style={{flexDirection:'column', marginLeft:10}}>
+                    <CheckBox
+                        left
+                        title='Pemeriksaan Jaringan'
+                        checked={this.state.isCheckedPemeriksaanJaringan}
+                        onPress={() => this.setState({isCheckedPemeriksaanJaringan: !this.state.isCheckedPemeriksaanJaringan})}
+                    />
+                
+                    <CheckBox
+                        left
+                        title='Instalasi Kabel Jaringan'
+                        checked={this.state.isCheckedKabelJaringan}
+                        onPress={() => this.setState({isCheckedKabelJaringan: !this.state.isCheckedKabelJaringan})}
+                    />
+
+                    <CheckBox
+                        left
+                        title='Instalasi Perangkat Jaringan'
+                        checked={this.state.isCheckedPerangkatJaringan}
+                        onPress={() => this.setState({isCheckedPerangkatJaringan: !this.state.isCheckedPerangkatJaringan})}
+                    />
+
+                    <CheckBox
+                        left
+                        title='De-Instalasi Perangkat Jaringan'
+                        checked={this.state.isCheckedDeInstallPerangkatJaringan}
+                        onPress={() => this.setState({isCheckedDeInstallPerangkatJaringan: !this.state.isCheckedDeInstallPerangkatJaringan})}
+                    />
+                    
+                </Row>
+                
+                
+                <Row style={{marginLeft:21, marginTop:7}}>
+                    <Text style={{fontSize:17, fontWeight:'bold'}}>Dengan Perincian:</Text>
+                </Row>
+                
+                
+                </View>
             </ScrollView>
             
             
