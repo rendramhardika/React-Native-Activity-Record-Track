@@ -1,30 +1,10 @@
 import React, { Component } from "react";
 import { ScrollView, View } from "react-native";
-import {
-  Container,
-  Header,
-  Title,
-  Content,
-  Footer,
-  FooterTab,
-  Button,
-  Left,
-  Right,
-  Body,
-  Icon,
-  Text,
-  Card,
-  CardItem,
-  Item,
-  Label,
-  Input,
-  ListItem,
-  CheckBox,
-  Form,
-  List
-} from "native-base";
+import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Card, CardItem, Item, Label, Input, ListItem, CheckBox, Form, List} from "native-base";
 import DatePicker from "react-native-datepicker";
 import { Grid, Col, Row } from "react-native-easy-grid";
+// import SignatureCapture from 'react-native-signature-capture'
+import SignaturePad from 'react-native-signature-pad'
 
 export default class FormBeritaAcara extends Component {
   constructor(props) {
@@ -36,11 +16,22 @@ export default class FormBeritaAcara extends Component {
       isCheckedPerangkatJaringan:false,
       isCheckedDeInstallPerangkatJaringan:false,
       isCheckedLainnya:false,
+      signClient:'',
     };
   }
-  render() {
-    return (
 
+  signaturePadChange(base64DataUrl){
+    this.setState({
+      signClient:base64DataUrl
+    })
+  }
+
+  signaturePadError(error){
+    console.error(error)
+  }
+
+  render() {
+    return ( 
         <Container>
           <Header>
             <Left>
@@ -200,25 +191,10 @@ export default class FormBeritaAcara extends Component {
               <CardItem header>
                 <Text>Mengetahui</Text>
               </CardItem>
-              <CardItem>
-                <Row style={{flexDirection:'column'}}>
-                  <List>
-                    <ListItem itemDivider style={{marginBottom:10}}>
-                      <Text>Client</Text>
-                    </ListItem>
-                    <Item floatingLabel style={{marginLeft:11, marginBottom:10}}>
-                        <Label>Nama Jelas:</Label>
-                        <Input />
-                    </Item>
-                    <Item>
-                    </Item>
-                  </List>
-                </Row>                
-              </CardItem>
             </Card>
           </Content>
-        </Container>
-      
+          <Signature />
+        </Container>      
     );
   }
 }
