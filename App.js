@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import AddBeritaAcara from './AddBeritaAcara/AddBeritaAcara.js'
-import FormBeritaAcara from './FormBeritaAcara/FormBeritaAcara.js'
+
 
 import FormBA from './FormBeritaAcara/FormBA.js'
 

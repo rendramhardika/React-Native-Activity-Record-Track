@@ -3,7 +3,8 @@ package com.beritaacara;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+
 import com.rssignaturecapture.RSSignatureCapturePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,7 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNCWebViewPackage(),
+            new RNGestureHandlerPackage(),
             new RSSignatureCapturePackage(),
             new VectorIconsPackage()
       );

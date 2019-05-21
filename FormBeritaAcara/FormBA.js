@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ScrollView, View, Modal, Alert } from "react-native";
 import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Card, CardItem, Item, Label, Input, ListItem, CheckBox, Form, List, H1, Textarea} from "native-base";
 import DatePicker from "react-native-datepicker";
-import SignaturePad from 'react-native-signature-pad'
+
 import SignatureCapture from 'react-native-signature-capture'
 
 export default class FormBA extends Component {

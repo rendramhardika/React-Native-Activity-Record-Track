@@ -4,7 +4,7 @@ import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Righ
 import DatePicker from "react-native-datepicker";
 import { Grid, Col, Row } from "react-native-easy-grid";
 // import SignatureCapture from 'react-native-signature-capture'
-import SignaturePad from 'react-native-signature-pad'
+// import SignaturePad from 'react-native-signature-pad'
 
 export default class FormBeritaAcara extends Component {
   constructor(props) {
