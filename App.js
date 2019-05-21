@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import AddBeritaAcara from './AddBeritaAcara/AddBeritaAcara.js'
-
+import FormWizard from './FormBeritaAcara/FormWizard.js'
 
 import FormBA from './FormBeritaAcara/FormBA.js'
 
@@ -31,8 +31,12 @@ export default class App extends Component<Props> {
       //   <Text style={styles.instructions}>To get started, edit App.js</Text>
       //   <Text style={styles.instructions}>{instructions}</Text>
       // </View>
-      
-        <FormBA />
+
+        //Form Without Wizard
+        // <FormBA />
+        
+        //Form using Wizard
+        <FormWizard />
       
       
     );
