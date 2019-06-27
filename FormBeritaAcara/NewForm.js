@@ -179,6 +179,7 @@ export default class NewForm extends Component{
     }
 
     addRJ = () =>{
+        this.setState({perangkatJenis:""})
         this.setModalVisiblePerangkat(!this.state.perangkatModal)
     }
 
@@ -295,7 +296,7 @@ export default class NewForm extends Component{
                                                             <Picker.Item label="Pilih Kabel" value="" />
                                                             <Picker.Item label="FO" value="FO" />
                                                             <Picker.Item label="UTP" value="UTP" />
-                                                            <Picker.Item label="listrik" value="Listrik" />
+                                                            <Picker.Item label="Listrik" value="Listrik" />
                                                         </Picker>
                                                     
                                                         <Item stackedLabel style={{marginLeft:11, marginBottom:10}}>
@@ -540,7 +541,7 @@ export default class NewForm extends Component{
                                                     {this.state.kabel.map((dataKabel, index)=>
                                                         <List>
                                                             <ListItem itemDivider key={index}>
-                                                                <Text>{dataKabel.jenis} - {index}</Text>
+                                                                <Text>Kabel {dataKabel.jenis} - {index}</Text>
                                                             </ListItem>
                                                             <ListItem >
                                                                 <Text>
@@ -567,7 +568,7 @@ export default class NewForm extends Component{
                                                     {this.state.fiber.map((dataFiber, index)=>
                                                         <List>
                                                             <ListItem itemDivider key={index}>
-                                                                <Text>Fiber Device- {index}</Text>
+                                                                <Text>Fiber Device - {index}</Text>
                                                             </ListItem>
                                                             <ListItem >
                                                                 <Text>
