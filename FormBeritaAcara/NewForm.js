@@ -22,8 +22,7 @@ export default class NewForm extends Component{
             signClient:"",
             signTimJaringan:"",
 
-            recordPost:[],
-
+            recordPost:{},
             perangkatJenis:"",
 
             perangkat:[],
@@ -43,6 +42,7 @@ export default class NewForm extends Component{
             
             jumlahRJ45:"",
         }
+        this.finalData = this.finalData.bind(this)
     }
 
     openDrawer = () => {
@@ -182,6 +182,18 @@ export default class NewForm extends Component{
         this.setState({perangkatJenis:""})
         this.setModalVisiblePerangkat(!this.state.perangkatModal)
     }
+    finalData = ()=>{
+        // console.log(this.state.perangkat)
+        var recordPost = {...this.state.recordPost}
+        recordPost.perangkat = this.state.perangkat
+        
+        this.setState({recordPost})
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.recordPost)
+    }
+
 
     render(){
         return(
@@ -665,12 +677,16 @@ export default class NewForm extends Component{
                                                         
                                                     />
                                                     <View style={{ flex: 1, flexDirection: "row" }}>
-                                                        <Button success style={{flex: 1, justifyContent: "center", alignItems: "center", height: 50, margin: 10}} onPress={() => { this.saveSignJaringan() } } >
+                                                        <Button success style={{flex: 1, justifyContent: "center", alignItems: "center", height: 50, margin: 10}} onPress={() => { this.saveSignJaringan("signTimJaringan") } } >
                                                             <Text>Save</Text>
                                                         </Button>
 
                                                         <Button warning style={{flex: 1, justifyContent: "center", alignItems: "center", height: 50, margin: 10}} onPress={() => { this.resetSignJaringan() } } >
                                                             <Text>Reset</Text>
+                                                        </Button>
+                                                        <Button success style={{flex: 1, justifyContent: "center", alignItems: "center", height: 50, margin: 10}} 
+                                                            onPress={() => { this.finalData() } } >
+                                                            <Text>Save</Text>
                                                         </Button>
                                                     </View>
                                                 </View>
