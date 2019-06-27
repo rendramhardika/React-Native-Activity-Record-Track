@@ -11,8 +11,11 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import AddBeritaAcara from './AddBeritaAcara/AddBeritaAcara.js'
 import FormWizard from './FormBeritaAcara/FormWizard.js'
-
+import NewForm from './FormBeritaAcara/NewForm.js'
 import FormBA from './FormBeritaAcara/FormBA.js'
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+
+import Detailnew from './FormBeritaAcara/DetailNew.js'
 
 
 const instructions = Platform.select({
@@ -22,26 +25,28 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
+
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>Welcome to React Native!</Text>
-      //   <Text style={styles.instructions}>To get started, edit App.js</Text>
-      //   <Text style={styles.instructions}>{instructions}</Text>
-      // </View>
 
         //Form Without Wizard
         // <FormBA />
         
         //Form using Wizard
-        <FormWizard />
+        // <FormWizard />
+
+        //New design form
+        <NewForm />
       
       
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

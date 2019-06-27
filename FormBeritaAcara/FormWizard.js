@@ -40,6 +40,47 @@ export default class FormWizard extends Component{
                     steps = {steps}
                     title = 'Berita Acara'
                 />
+                {/* 
+                    Modal for Switch
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.switchModal}
+                    onRequestClose={()=>{
+                        this.setModalVisibleSwitch(!this.state.switchModal)
+                    }}>
+                    <View style={{flex:1, flexDirection:'column', justifyContent:'center',alignItems:'center', margin:10, }}>
+                        <View >
+                            <Card style={{flexDirection:'column', width:400}}>
+                                <CardItem header>
+                                    <Text>Switch</Text>
+                                </CardItem>
+                                <CardItem>
+                                    <List>
+                                        <Item stackedLabel style={{marginLeft:11, marginBottom:10}}>
+                                            <Label>Jumlah</Label>
+                                            <Input value={this.state.switchJumlah} onChangeText={(text)=>this.setState({switchJumlah:text})} keyboardType="numeric" />
+                                        </Item>
+                                        <Item stackedLabel style={{marginLeft:11, marginBottom:10}}>
+                                            <Label>Vendor/Model</Label>
+                                            <Input value={this.state.switchVendor} onChangeText={(text)=>this.setState({switchVendor:text})} />
+                                        </Item>
+                                        <Item stackedLabel style={{marginLeft:11, marginBottom:10}}>
+                                            <Label>No. Aset/SN</Label>
+                                            <Input value={this.state.switchNo} onChangeText={(text)=>this.setState({switchNo:text})} />
+                                        </Item>
+                                    </List>
+                                </CardItem>
+                                <CardItem>
+                                    <Button style={{alignItems:'center'}} primary onPress={() => {this.addSwitch()}}>
+                                        <Text> Tambah Switch </Text>
+                                    </Button>
+                                </CardItem>
+                            </Card>
+                        </View>
+                    </View>
+                </Modal>
+                 */}
             </View>
             
         )
