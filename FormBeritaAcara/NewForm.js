@@ -41,6 +41,8 @@ export default class NewForm extends Component{
             
             
             jumlahRJ45:"",
+            diagnoseMasalah:"",
+            penMasalah:"",
         }
         this.finalData = this.finalData.bind(this)
     }
@@ -121,6 +123,7 @@ export default class NewForm extends Component{
         if(this.state.perangkatVendor != '' && this.state.perangkatJumlah != '' && this.state.perangkatNo !=''){
             var perangkatArray = [...this.state.perangkat]
             perangkatArray.push({
+                idPerangkat: perangkatArray.length ? perangkatArray[perangkatArray.length - 1].idPerangkat + 1 : 1,
                 jenis:this.state.perangkatJenis,
                 model: this.state.perangkatVendor,
                 no_aset:this.state.perangkatNo,
@@ -137,14 +140,14 @@ export default class NewForm extends Component{
         }
         else{
             Alert.alert("Data tidak boleh kosong!")
-        }
-        
+        }     
     }
 
     addKabel = () =>{
         if(this.state.kabelJenis != '' && this.state.panjangKabel != ''){
             var kabelArray = [...this.state.kabel]
             kabelArray.push({
+                idKabel: kabelArray.length ? kabelArray[kabelArray.length - 1].idKabel + 1 : 1,
                 jenis:this.state.kabelJenis,
                 panjang:this.state.panjangKabel,
             })
@@ -164,6 +167,7 @@ export default class NewForm extends Component{
     addFiber = () =>{
         var fiberArray = [...this.state.fiber]
         fiberArray.push({
+            idFiber: fiberArray.length ? fiberArray[fiberArray.length - 1].idFiber + 1 : 1,
             jenis:this.state.fiberJenis,
             model:this.state.fiberVendor,
             no_aset:this.state.fiberNo
@@ -182,11 +186,37 @@ export default class NewForm extends Component{
         this.setState({perangkatJenis:""})
         this.setModalVisiblePerangkat(!this.state.perangkatModal)
     }
+
+
+    // Delete Function
+    onDeleteFiber = (index) => {
+        var fiberArray = this.state.fiber.filter(e=>e.idFiber !== index)
+        this.setState({fiber:fiberArray})
+    }
+
+    onDeletePerangkat = (index) => {
+        var perangkatArray = this.state.perangkat.filter(e=>e.idPerangkat !== index)
+        this.setState({perangkat:perangkatArray})
+    }
+
+    onDeleteKabel = (index) => {
+        var kabelArray = this.state.kabel.filter(e=>e.idKabel !== index)
+        this.setState({kabel:kabelArray})
+    }
+
+
+    // SAVE FINAL DATA
     finalData = ()=>{
         // console.log(this.state.perangkat)
+
         var recordPost = {...this.state.recordPost}
+        recordPost.date = this.state.date
+        recordPost.lokasi = this.state.lokasi
         recordPost.perangkat = this.state.perangkat
-        
+        recordPost.kabel = this.state.kabel
+        recordPost.fiber_device = this.state.fiber
+        recordPost.rj45 = this.state.jumlahRJ45
+
         this.setState({recordPost})
     }
 
@@ -206,13 +236,16 @@ export default class NewForm extends Component{
                         transparent={true}
                         visible={this.state.checkTypeModal}
                         onRequestClose={()=>{
-                            this.setModalVisibleSwitch(!this.state.checkTypeModal)
+                            this.setModalVisibleCheck(!this.state.checkTypeModal)
                         }}>
                         <View style={{flex:1, flexDirection:'column', justifyContent:'center',alignItems:'center', margin:10, }}>
                             <View >
                                 <Card style={{flexDirection:'column', width:400}}>
-                                    <CardItem header>
+                                    <CardItem style={{flexDirection:'row', justifyContent:'space-between'}} header>
                                         <Text>Jenis Kegiatan</Text>
+                                        <Button small danger onPress={()=>{this.setModalVisibleCheck(!this.state.checkTypeModal)}}>
+                                            <Icon name="close" />
+                                        </Button>
                                     </CardItem>
                                     <CardItem>
                                         <View style={{flex:1}}>
@@ -276,8 +309,11 @@ export default class NewForm extends Component{
                         <View style={{flex:1, flexDirection:'column', justifyContent:'center',alignItems:'center', margin:10, }}>
                             <View >
                                 <Card style={{flexDirection:'column', width:400}}>
-                                    <CardItem header>
+                                    <CardItem style={{flexDirection:'row', justifyContent:'space-between'}} header>
                                         <Text>Komponen</Text>
+                                        <Button small danger onPress={()=>{this.setModalVisiblePerangkat(!this.state.perangkatModal)}}>
+                                            <Icon name="close" />
+                                        </Button>
                                     </CardItem>
                                     <CardItem>
                                         <List>
@@ -420,19 +456,58 @@ export default class NewForm extends Component{
                         transparent={true}
                         visible={this.state.netCheckModal}
                         onRequestClose={()=>{
-                            this.setModalVisibleSwitch(!this.state.netCheckModal)
+                            this.setModalVisiblenetCheck(!this.state.netCheckModal)
                         }}>
                         <View style={{flex:1, flexDirection:'column', justifyContent:'center',alignItems:'center', margin:10, }}>
                             <View >
                                 <Card style={{flexDirection:'column', width:400}}>
-                                    <CardItem header>
-                                        <Text>Pemriksaan Jaringan</Text>
+                                    <CardItem style={{flexDirection:'row', justifyContent:'space-between'}} header>
+                                        <Text>Pemeriksaan Jaringan</Text>
+                                        <Button small danger onPress={()=>{this.setModalVisiblenetCheck(!this.state.netCheckModal)}}>
+                                            <Icon name="close" />
+                                        </Button>
                                     </CardItem>
                                     <CardItem>
                                         
                                     </CardItem>
                                     <CardItem>
                                         <Button style={{alignItems:'center'}} primary onPress={() => {this.setModalVisiblenetCheck(!this.state.netCheckModal)}}>
+                                            <Text> Selesai </Text>
+                                        </Button>
+                                    </CardItem>
+                                </Card>
+                            </View>
+                        </View>
+                    </Modal>
+
+
+                    {/* MODAL FOR DIAGNOSE */}
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.diagnoseModal}
+                        onRequestClose={()=>{
+                            this.setModalVisibleDiagnose(!this.state.diagnoseModal)
+                        }}>
+                        <View style={{flex:1, flexDirection:'column', justifyContent:'center',alignItems:'center', margin:10, }}>
+                            <View >
+                                <Card style={{flexDirection:'column', width:400}}>
+                                    <CardItem style={{flexDirection:'row', justifyContent:'space-between'}} header>
+                                        <Text>Diagnosa Pemeriksaan</Text>
+                                        <Button small danger onPress={()=>{this.setModalVisibleDiagnose(!this.state.diagnoseModal)}}>
+                                            <Icon name="close" />
+                                        </Button>
+                                    </CardItem>
+                                    <CardItem >
+                                        <View style={{flex:1, margin:5}}>
+                                            <Form>
+                                                <Textarea rowSpan={5} bordered placeholder="Diagnosa Permasalahan" value={this.state.diagnoseMasalah} onChangeText={(text)=>{this.setState({diagnoseMasalah:text})}} />
+                                                <Textarea rowSpan={5} bordered placeholder="Penanganan Masalah" value={this.state.penMasalah} onChangeText={(text)=>{this.setState({penMasalah:text})}} />
+                                            </Form>
+                                        </View>
+                                    </CardItem>
+                                    <CardItem>
+                                        <Button style={{alignItems:'center'}} primary onPress={() => {this.setModalVisibleDiagnose(!this.state.diagnoseModal)}}>
                                             <Text> Selesai </Text>
                                         </Button>
                                     </CardItem>
@@ -521,10 +596,13 @@ export default class NewForm extends Component{
                                         (
                                             <CardItem>
                                                 <View style={{flex:1}}>
-                                                    {this.state.perangkat.map((data, index)=>
-                                                        <List>
-                                                            <ListItem itemDivider key={index}>
-                                                                <Text>{data.jenis} - {index}</Text>
+                                                    {this.state.perangkat.map((data)=>
+                                                        <List key={data.idPerangkat}>
+                                                            <ListItem itemDivider style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                                                <Text>{data.jenis}</Text>
+                                                                <Button small danger onPress={()=> {this.onDeletePerangkat(data.idPerangkat)}}>
+                                                                    <Icon name="trash" />
+                                                                </Button>
                                                             </ListItem>
                                                             <ListItem >
                                                                 <Text>
@@ -550,10 +628,13 @@ export default class NewForm extends Component{
                                         (
                                             <CardItem>
                                                 <View style={{flex:1}}>
-                                                    {this.state.kabel.map((dataKabel, index)=>
-                                                        <List>
-                                                            <ListItem itemDivider key={index}>
-                                                                <Text>Kabel {dataKabel.jenis} - {index}</Text>
+                                                    {this.state.kabel.map((dataKabel)=>
+                                                        <List key={dataKabel.idKabel}>
+                                                            <ListItem itemDivider style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                                                <Text>Kabel {dataKabel.jenis} </Text>
+                                                                <Button small danger onPress={()=> {this.onDeleteKabel(dataKabel.idKabel)}}>
+                                                                    <Icon name="trash" />
+                                                                </Button>
                                                             </ListItem>
                                                             <ListItem >
                                                                 <Text>
@@ -577,10 +658,14 @@ export default class NewForm extends Component{
                                         (
                                             <CardItem>
                                                 <View style={{flex:1}}>
-                                                    {this.state.fiber.map((dataFiber, index)=>
-                                                        <List>
-                                                            <ListItem itemDivider key={index}>
-                                                                <Text>Fiber Device - {index}</Text>
+                                                    {this.state.fiber.map((dataFiber)=>
+                                                        
+                                                        <List key={dataFiber.idFiber}>
+                                                            <ListItem itemDivider  style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                                                <Text>Fiber Device</Text>
+                                                                <Button small danger onPress={()=> {this.onDeleteFiber(dataFiber.idFiber)}}>
+                                                                    <Icon name="trash" />
+                                                                </Button>
                                                             </ListItem>
                                                             <ListItem >
                                                                 <Text>
@@ -606,9 +691,12 @@ export default class NewForm extends Component{
                                             <CardItem>
                                                 <View style={{flex:1}}>
                                                     <List>
-                                                        <ListItem itemDivider>
-                                                            <Text>Konektor RJ-45</Text>
-                                                        </ListItem>
+                                                        <ListItem itemDivider style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                                                <Text>Konektor RJ-45</Text>
+                                                                <Button small danger onPress={()=> {this.setState({jumlahRJ45:""})}}>
+                                                                    <Icon name="trash" />
+                                                                </Button>
+                                                            </ListItem>
                                                         <ListItem >
                                                             <Text>
                                                                 Jumlah : {this.state.jumlahRJ45} unit
@@ -684,6 +772,9 @@ export default class NewForm extends Component{
                                                         <Button warning style={{flex: 1, justifyContent: "center", alignItems: "center", height: 50, margin: 10}} onPress={() => { this.resetSignJaringan() } } >
                                                             <Text>Reset</Text>
                                                         </Button>
+                                                        
+                                                    </View>
+                                                    <View style={{flex:1, flexDirection:"row"}}>
                                                         <Button success style={{flex: 1, justifyContent: "center", alignItems: "center", height: 50, margin: 10}} 
                                                             onPress={() => { this.finalData() } } >
                                                             <Text>Save</Text>
